@@ -76,13 +76,19 @@ body {
 
 .site-header a,
 .site-footer a {
-    color: rgba(255, 255, 255, 0.9);
+    color: #fff;
     text-decoration: underline;
     text-underline-offset: 2px;
 }
 
 .site-header a:hover,
 .site-footer a:hover {
+    color: #fff;
+    opacity: 0.8;
+}
+
+.site-header a:visited,
+.site-footer a:visited {
     color: #fff;
 }
 
