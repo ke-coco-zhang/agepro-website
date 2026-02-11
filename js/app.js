@@ -24,6 +24,7 @@
       molecule: new Set(),
       dataType: new Set(),
     },
+    searchQuery: "",
     filteredData: [],
     selectedIds: new Set(),
     sortKey: null,     // current sort column key (e.g. "filename", "sizeMB")
@@ -92,12 +93,32 @@
   function applyFilters() {
     computeAvailableOptions();
 
+    var terms = state.searchQuery.toLowerCase().split(",").map(function (t) { return t.trim(); }).filter(function (t) { return t.length > 0; });
+
     state.filteredData = AGEPRO_DATA.filter(function (record) {
-      return FILTER_KEYS.every(function (key) {
+      // Check checkbox filters
+      var passesFilters = FILTER_KEYS.every(function (key) {
         var selected = state.filters[key];
         if (selected.size === 0) return true;
         return selected.has(record[key]);
       });
+      if (!passesFilters) return false;
+
+      // Check text search — every term must match at least one field
+      if (terms.length > 0) {
+        var searchable = (
+          record.filename + " " +
+          record.disk + " " +
+          record.region + " " +
+          record.molecule + " " +
+          record.band + " " +
+          record.dataType
+        ).toLowerCase();
+        return terms.every(function (term) {
+          return searchable.indexOf(term) !== -1;
+        });
+      }
+      return true;
     });
 
     applySorting();
@@ -416,6 +437,12 @@
     document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(function (cb) {
       cb.checked = false;
     });
+    // Clear search
+    state.searchQuery = "";
+    var searchInput = document.getElementById("search-input");
+    searchInput.value = "";
+    document.getElementById("search-clear").hidden = true;
+
     state.sortKey = null;
     state.sortAsc = true;
     updateSortUI();
@@ -491,11 +518,41 @@
     buildFilterUI();
     applyFilters();
 
+    // Search input
+    var searchInput = document.getElementById("search-input");
+    var searchClear = document.getElementById("search-clear");
+
+    searchInput.addEventListener("input", function () {
+      state.searchQuery = searchInput.value.trim();
+      searchClear.hidden = !searchInput.value;
+      applyFilters();
+    });
+
+    searchClear.addEventListener("click", function () {
+      searchInput.value = "";
+      state.searchQuery = "";
+      searchClear.hidden = true;
+      applyFilters();
+      searchInput.focus();
+    });
+
     // Table row checkbox delegation
     document.getElementById("results-body").addEventListener("change", function (e) {
       if (e.target.classList.contains("row-checkbox")) {
         onRowCheckboxChange(e);
       }
+    });
+
+    // Clickable rows — clicking anywhere on a row toggles selection
+    document.getElementById("results-body").addEventListener("click", function (e) {
+      // Skip if the click was directly on the checkbox (already handled by change event)
+      if (e.target.type === "checkbox") return;
+      var tr = e.target.closest("tr");
+      if (!tr) return;
+      var cb = tr.querySelector(".row-checkbox");
+      if (!cb) return;
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event("change", { bubbles: true }));
     });
 
     // Header checkbox

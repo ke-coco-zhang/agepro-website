@@ -9,8 +9,13 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <h1>AGE-PRO Data Archive</h1>
-            <p class="subtitle">The ALMA Survey of Gas Evolution in PROtoplanetary Disks</p>
+            <div class="header-content">
+                <img src="AGE-PRO-white-transparent.png" alt="AGE-PRO Logo" class="site-logo">
+                <div>
+                    <h1>AGE-PRO Data Archive</h1>
+                    <p class="subtitle">The ALMA Survey of Gas Evolution in PROtoplanetary Disks &mdash; <a href="https://agepro.das.uchile.cl" target="_blank" rel="noopener">agepro.das.uchile.cl</a></p>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -31,6 +36,14 @@
                 <span class="step-label">Download Script</span>
             </div>
         </section>
+
+        <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search: e.g. 'Lupus 1, CO, B6' (comma-separated, all must match)" autocomplete="off">
+            <button id="search-clear" class="search-clear" hidden>&times;</button>
+        </div>
 
         <section class="filters" id="filters">
             <div class="filter-group" id="filter-region">
@@ -127,7 +140,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>AGE-PRO &mdash; The ALMA Survey of Gas Evolution in PROtoplanetary Disks</p>
+            <p>AGE-PRO &mdash; The ALMA Survey of Gas Evolution in PROtoplanetary Disks &mdash; <a href="https://agepro.das.uchile.cl" target="_blank" rel="noopener">Project Website</a></p>
         </div>
     </footer>
 

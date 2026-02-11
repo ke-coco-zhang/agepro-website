@@ -1,3 +1,4 @@
 csv_files/
 .claude/
 *.sh
+.DS_Store
