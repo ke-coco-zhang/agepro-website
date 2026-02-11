@@ -54,7 +54,11 @@ body {
 
 .site-logo {
     height: 60px;
-    width: auto;
+    width: 60px;
+    max-height: 60px;
+    max-width: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .site-header h1 {
