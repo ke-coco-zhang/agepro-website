@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGE-PRO Data Archive</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>AGE-PRO Data Archive</h1>
+            <p class="subtitle">The ALMA Survey of Gas Evolution in PROtoplanetary Disks</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="workflow-steps">
+            <div class="step active" data-step="1">
+                <span class="step-number">1</span>
+                <span class="step-label">Filter Data</span>
+            </div>
+            <div class="step-arrow"></div>
+            <div class="step" data-step="2">
+                <span class="step-number">2</span>
+                <span class="step-label">Select Files</span>
+            </div>
+            <div class="step-arrow"></div>
+            <div class="step" data-step="3">
+                <span class="step-number">3</span>
+                <span class="step-label">Download Script</span>
+            </div>
+        </section>
+
+        <section class="filters" id="filters">
+            <div class="filter-group" id="filter-region">
+                <h3>Region</h3>
+                <div class="filter-controls">
+                    <button class="btn-sm" data-action="select-all">All</button>
+                    <button class="btn-sm" data-action="select-none">None</button>
+                </div>
+                <div class="filter-options"></div>
+            </div>
+            <div class="filter-group" id="filter-disk">
+                <h3>Disk</h3>
+                <div class="filter-controls">
+                    <button class="btn-sm" data-action="select-all">All</button>
+                    <button class="btn-sm" data-action="select-none">None</button>
+                </div>
+                <div class="filter-options"></div>
+            </div>
+            <div class="filter-group" id="filter-band">
+                <h3>Band</h3>
+                <div class="filter-controls">
+                    <button class="btn-sm" data-action="select-all">All</button>
+                    <button class="btn-sm" data-action="select-none">None</button>
+                </div>
+                <div class="filter-options"></div>
+            </div>
+            <div class="filter-group" id="filter-molecule">
+                <h3>Molecule</h3>
+                <div class="filter-controls">
+                    <button class="btn-sm" data-action="select-all">All</button>
+                    <button class="btn-sm" data-action="select-none">None</button>
+                </div>
+                <div class="filter-options"></div>
+            </div>
+            <div class="filter-group" id="filter-dataType">
+                <h3>Data Type</h3>
+                <div class="filter-controls">
+                    <button class="btn-sm" data-action="select-all">All</button>
+                    <button class="btn-sm" data-action="select-none">None</button>
+                </div>
+                <div class="filter-options"></div>
+            </div>
+        </section>
+
+        <div class="filter-actions">
+            <button id="btn-reset-filters" class="btn-reset">Reset All Filters</button>
+        </div>
+
+        <section class="results-bar" id="results-bar">
+            <div class="results-summary">
+                <span id="results-count">Showing 0 files</span>
+                <span class="sep">|</span>
+                <span id="results-size">Total: 0 MB</span>
+                <span class="sep">|</span>
+                <span id="selected-count">0 selected</span>
+                <span class="sep">|</span>
+                <span id="selected-size">Selected: 0 MB</span>
+            </div>
+            <div class="results-actions">
+                <button id="btn-select-all-shown" class="btn-secondary">Select All Shown</button>
+                <button id="btn-deselect-all" class="btn-secondary">Deselect All</button>
+                <button id="btn-generate" class="btn-primary" disabled>Generate Download Script</button>
+            </div>
+        </section>
+
+        <section class="results-table-wrapper">
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th class="col-check"><input type="checkbox" id="select-all-checkbox" title="Select/deselect all shown"></th>
+                        <th class="sortable" data-sort="filename">Filename <span class="sort-icon"></span></th>
+                        <th class="sortable" data-sort="region">Region <span class="sort-icon"></span></th>
+                        <th class="sortable" data-sort="disk">Disk <span class="sort-icon"></span></th>
+                        <th class="sortable" data-sort="band">Band <span class="sort-icon"></span></th>
+                        <th class="sortable" data-sort="molecule">Molecule <span class="sort-icon"></span></th>
+                        <th class="sortable" data-sort="dataType">Data Type <span class="sort-icon"></span></th>
+                        <th class="sortable col-size" data-sort="sizeMB">Size <span class="sort-icon"></span></th>
+                    </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+        </section>
+
+        <div class="empty-state" id="empty-state">
+            <svg class="empty-state-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+            <h3>No files match your current filters</h3>
+            <p>Try broadening your selection or <button class="btn-link" id="btn-empty-reset">reset all filters</button></p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>AGE-PRO &mdash; The ALMA Survey of Gas Evolution in PROtoplanetary Disks</p>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
